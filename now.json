@@ -4,22 +4,22 @@
   "alias": ["ilmestys.now.sh"],
   "builds": [
     {
-        "src": "./src/index.html",
+        "src": "src/index.html",
         "use": "@now/static"
     },
     {
-        "src": "./src/**/*.ts",
+        "src": "src/**/*.ts",
         "use": "@now/node"
     }
   ],
   "routes": [
     {
       "src": "/",
-      "dest": "./src/index.html"
+      "dest": "src/index.html"
     },
     {
       "src": "/(.+)",
-      "dest": "./src/index.ts"
+      "dest": "src/index.ts"
     }
   ],
   "env": {
