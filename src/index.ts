@@ -4,9 +4,9 @@ import axios from 'axios'
 import Koa from 'koa'
 import Router from 'koa-router'
 
-import Comment from './comment';
-import Notification from './notification';
-import Pull from './pull';
+import Comment from './types/comment';
+import Notification from './types/notification';
+import Pull from './types/pull';
 
 const app = new Koa()
 const router = new Router()
