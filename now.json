@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "name": "Ilmestys",
+  "alias": ["ilmestys.now.sh"],
+  "builds": [
+    {
+        "src": "./src/index.html",
+        "use": "@now/static"
+    },
+    {
+        "src": "./src/**/*.ts",
+        "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "./src/index.html"
+    },
+    {
+      "src": "/(.+)",
+      "dest": "./src/index.ts"
+    }
+  ]
+}
