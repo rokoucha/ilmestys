@@ -47,7 +47,7 @@ router.get("/atom", async ctx => {
   const feed = new Feed({
     title: "GitHub Notifications",
     description: "Depending on your notification settings, you’ll see updates here for your conversations in watched repositories.",
-    id: "https://ilmestys.now.sh",
+    id: "https://ilmestys.now.sh/",
     link: "https://github.com/notifications",
     image: "https://github.githubassets.com/pinned-octocat.svg",
     favicon: "https://github.githubassets.com/favicon.ico",
