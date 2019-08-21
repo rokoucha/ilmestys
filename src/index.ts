@@ -1,8 +1,8 @@
+import { Base64 } from 'js-base64'
 import { Feed } from 'feed'
 import axios from 'axios'
 import Koa from 'koa'
 import Router from 'koa-router'
-import { Base64 } from 'js-base64'
 
 import Comment from './comment';
 import Notification from './notification';
@@ -27,13 +27,22 @@ const dateSort = (a:string, b:string) => {
 }
 
 router.get("/atom", async ctx => {
-  const token = getToken(ctx.request.headers['authorization'])
+  let token = ''
+  try {
+    token = getToken(ctx.request.headers['authorization'])
+  } catch (error) {
+    ctx.throw(401, 'Authorization required');
+  }
 
   const notifications = await axios.get<Notification[]>('https://api.github.com/notifications', {
     headers: {
       "Authorization": `token ${token}`,
     },
   })
+
+  const updatedAt = 0 < notifications.data.length
+    ? new Date(notifications.data.sort((a,b) => dateSort(a.updated_at, b.updated_at))[0].updated_at)
+    : new Date()
 
   const feed = new Feed({
     title: "GitHub Notifications",
@@ -43,7 +52,7 @@ router.get("/atom", async ctx => {
     image: "https://github.githubassets.com/pinned-octocat.svg",
     favicon: "https://github.githubassets.com/favicon.ico",
     copyright: "GitHub, Inc.",
-    updated: new Date(notifications.data.sort((a,b) => dateSort(a.updated_at, b.updated_at))[0].updated_at),
+    updated: updatedAt,
     generator: "ilmestys",
     author: {
       name: "GitHub",
