@@ -67,7 +67,7 @@ router.get("/atom", async ctx => {
 
     feed.addItem({
       title: notification.subject.title,
-      id: `tag:${notification.id}`,
+      id: `tag:ilmestys.now.sh,2019-08-22:${notification.id}`,
       link: notification.subject.url,
       description: description.data.html_url,
       content: description.data.body,
