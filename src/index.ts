@@ -26,6 +26,8 @@ const dateSort = (a:string, b:string) => {
   return aDate == bDate ? 0 : aDate < bDate ? 1 : -1
 }
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 router.get("/atom", async ctx => {
   let token = ''
   try {
@@ -60,7 +62,10 @@ router.get("/atom", async ctx => {
     },
   });
 
-  await Promise.all(notifications.data.map(async notification => {
+  for (const notification of notifications.data) {
+    // wait 1 sec
+    await sleep(1000)
+
     const description = await axios.get<Comment|Pull>(
       notification.subject.latest_comment_url || notification.subject.url
     )
@@ -80,7 +85,7 @@ router.get("/atom", async ctx => {
       date: new Date(notification.updated_at),
       image: description.data.user.avatar_url,
     })
-  }))
+  }
 
   ctx.type = "application/atom+xml; charset=utf-8"
   ctx.body = feed.atom1()
