@@ -3,10 +3,10 @@
     <head>
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
         <title>Ilmestys</title>
-
+        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-
+        
         <style>
 .task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
@@ -17,12 +17,41 @@
                 line-height: 1.6;
             }
         </style>
-
-
+        
+        
     </head>
     <body>
         <h1 id="ilmestys">Ilmestys</h1>
 <p>RSS feed generator for GitHub notifications</p>
+<h2 id="how-to-use">How to use</h2>
+<h3 id="1-make-personal-access-token">1. Make Personal access token</h3>
+<p>Ilmestys required access token for get notifications, informations of private repository.
+Open <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a> and make access token.</p>
+<table>
+<thead>
+<tr>
+<th>scope</th>
+<th>description</th>
+<th>purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code></td>
+<td>Full control of private repositories</td>
+<td>get informations of private repository</td>
+</tr>
+<tr>
+<td><code>notifications</code></td>
+<td>Access notifications</td>
+<td>get notifications</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-add-ilmestys-to-rss-reader">2. Add Ilmestys to RSS Reader</h3>
+<p>Ilmestys use Basic authorization for receive access token.</p>
+<p>Subscribe <a href="https://ilmestys.atnanasi.now.sh/atom">https://ilmestys.atnanasi.now.sh/atom</a> and input authorization information.
+You can use any username but enter the access token for the password.</p>
 
     </body>
     </html>
