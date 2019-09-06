@@ -66,9 +66,11 @@ router.get("/atom", async ctx => {
     // wait 1 sec
     await sleep(1000)
 
-    const description = await axios.get<Comment|Pull>(
-      notification.subject.latest_comment_url || notification.subject.url
-    )
+    const description = await axios.get<Comment|Pull>(notification.subject.latest_comment_url || notification.subject.url, {
+      headers: {
+        "Authorization": `token ${token}`,
+      },
+    })
 
     feed.addItem({
       title: notification.subject.title,
