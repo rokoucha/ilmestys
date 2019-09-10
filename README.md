@@ -13,6 +13,7 @@ Open <https://github.com/settings/tokens> and make access token.
 |-------|-------------|---------|
 | `repo` | Full control of private repositories | get informations of private repository |
 | `notifications` | Access notifications | get notifications |
+| `read:discussion` | Read team discussions | Access discussion in private repository |
 
 ### 2. Add Ilmestys to RSS Reader
 
