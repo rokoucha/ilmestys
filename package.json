@@ -6,7 +6,7 @@
   "repository": "ssh://git@github.com/atnanasi/ilmestys.git",
   "author": "Atnanasi <ys2000pro@gmail.com>",
   "license": "MIT",
-  "node": "12.x",
+  "engines": { "node": "12.x" }
   "dependencies": {
     "axios": "^0.19.0",
     "feed": "^4.1.0",
