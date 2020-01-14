@@ -13,7 +13,7 @@
     "js-base64": "^2.5.1",
     "koa": "^2.11.0",
     "koa-router": "^7.4.0",
-    "transform-ts": "^0.2.2"
+    "transform-ts": "^0.3.0"
   },
   "devDependencies": {
     "@types/js-base64": "^2.3.1",
