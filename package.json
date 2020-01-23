@@ -12,7 +12,7 @@
     "feed": "^4.1.0",
     "js-base64": "^2.5.1",
     "koa": "^2.11.0",
-    "koa-router": "^7.4.0",
+    "koa-router": "^8.0.6",
     "transform-ts": "^0.3.0"
   },
   "devDependencies": {
