@@ -64,8 +64,8 @@ async function atom(ctx: Koa.Context) {
   })
 
   for (const notification of notifications.data) {
-    // wait 100 ms for Rate limit
-    await sleep(100)
+    // wait 50 ms for Rate limit
+    await sleep(50)
 
     let description: AxiosResponse<Comment | Pull>
 
