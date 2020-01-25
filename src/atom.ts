@@ -32,7 +32,7 @@ async function atom(ctx: Koa.Context) {
     ctx.throw(500, error)
   }
   console.info(
-    `Rate limit(${sha1sum(token)}): ${
+    `Rate limit(${sha1sum(token).substring(0, 8)}): ${
       notifications.headers['x-ratelimit-remaining']
     }/${notifications.headers['x-ratelimit-limit']}`
   )
@@ -84,7 +84,7 @@ async function atom(ctx: Koa.Context) {
       ctx.throw(500, error)
     }
     console.info(
-      `Rate limit(${sha1sum(token)}): ${
+      `Rate limit(${sha1sum(token).substring(0, 8)}): ${
         description.headers['x-ratelimit-remaining']
       }/${description.headers['x-ratelimit-limit']}`
     )
