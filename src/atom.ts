@@ -13,6 +13,7 @@ async function atom(ctx: Koa.Context) {
   try {
     token = getToken(ctx.request.headers['authorization'])
   } catch (error) {
+    console.warn('Error in get token from Authorization header')
     ctx.throw(401, 'Authorization required')
   }
 
