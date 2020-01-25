@@ -1,4 +1,3 @@
-import { createHash } from "crypto"
 import { Feed } from 'feed'
 import axios, { AxiosResponse } from 'axios'
 import Koa from 'koa'
@@ -7,11 +6,9 @@ import Comment from './types/comment'
 import Notification from './types/notification'
 import Pull from './types/pull'
 
-import { dateSort, getToken, sleep, createTagUri } from './utils'
+import { dateSort, getToken, sleep, createTagUri, sha1sum } from './utils'
 
 async function atom(ctx: Koa.Context) {
-  const sha1 = createHash('sha1')
-
   let token: string
   try {
     token = getToken(ctx.request.headers['authorization'])
@@ -33,7 +30,11 @@ async function atom(ctx: Koa.Context) {
     console.warn('Error in get notifications from GitHub API')
     ctx.throw(500, error)
   }
-  console.info(`Rate limit(${sha1.update(token).digest('hex')}): ${notifications.headers['x-ratelimit-remaining']}/${notifications.headers['x-ratelimit-limit']}`)
+  console.info(
+    `Rate limit(${sha1sum(token)}): ${
+      notifications.headers['x-ratelimit-remaining']
+    }/${notifications.headers['x-ratelimit-limit']}`
+  )
 
   // Get latest notification
   const updatedAt =
@@ -81,7 +82,11 @@ async function atom(ctx: Koa.Context) {
       console.warn('Error in get description from GitHub API')
       ctx.throw(500, error)
     }
-    console.info(`Rate limit(${sha1.update(token).digest('hex')}): ${description.headers['x-ratelimit-remaining']}/${description.headers['x-ratelimit-limit']}`)
+    console.info(
+      `Rate limit(${sha1sum(token)}): ${
+        description.headers['x-ratelimit-remaining']
+      }/${description.headers['x-ratelimit-limit']}`
+    )
 
     feed.addItem({
       title: notification.subject.title,

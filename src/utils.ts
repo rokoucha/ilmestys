@@ -1,4 +1,5 @@
 import { Base64 } from 'js-base64'
+import { createHash } from 'crypto'
 
 function getToken(header: string) {
   const body = header.split(' ')[1]
@@ -28,4 +29,10 @@ function createTagUri(specific: string) {
   return `tag:${taggingEntity}:${specific}`
 }
 
-export { dateSort, getToken, sleep, createTagUri }
+function sha1sum(text: string) {
+  const sha1 = createHash('sha1')
+  sha1.update(text)
+  return sha1.digest('hex')
+}
+
+export { dateSort, getToken, sleep, createTagUri, sha1sum }
