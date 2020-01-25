@@ -1,98 +1,16 @@
-import { Base64 } from 'js-base64'
-import { Feed } from 'feed'
-import axios from 'axios'
 import Koa from 'koa'
+import logger from 'koa-logger'
+import responseTime from 'koa-response-time'
 import Router from 'koa-router'
 
-import Comment from './types/comment';
-import Notification from './types/notification';
-import Pull from './types/pull';
+import atom from './atom'
+
+const router = new Router()
+router.get('/atom', atom)
 
 const app = new Koa()
-const router = new Router()
-
-const getToken = (header: string) => {
-  const body = header.split(' ')[1]
-  const base64 = Base64.decode(body)
-  const authorization = base64.toString().split(':')
-
-  return authorization[1]
-}
-
-const dateSort = (a:string, b:string) => {
-  const aDate = new Date(a)
-  const bDate = new Date(b)
-
-  return aDate == bDate ? 0 : aDate < bDate ? 1 : -1
-}
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-router.get("/atom", async ctx => {
-  let token = ''
-  try {
-    token = getToken(ctx.request.headers['authorization'])
-  } catch (error) {
-    ctx.throw(401, 'Authorization required');
-  }
-
-  const notifications = await axios.get<Notification[]>('https://api.github.com/notifications', {
-    headers: {
-      "Authorization": `token ${token}`,
-    },
-  })
-
-  const updatedAt = 0 < notifications.data.length
-    ? new Date(notifications.data.sort((a,b) => dateSort(a.updated_at, b.updated_at))[0].updated_at)
-    : new Date()
-
-  const feed = new Feed({
-    title: "GitHub Notifications",
-    description: "Depending on your notification settings, you’ll see updates here for your conversations in watched repositories.",
-    id: "https://ilmestys.now.sh/",
-    link: "https://github.com/notifications",
-    image: "https://github.githubassets.com/pinned-octocat.svg",
-    favicon: "https://github.githubassets.com/favicon.ico",
-    copyright: "GitHub, Inc.",
-    updated: updatedAt,
-    generator: "ilmestys",
-    author: {
-      name: "GitHub",
-      link: "https://github.com"
-    },
-  });
-
-  for (const notification of notifications.data) {
-    // wait 1 sec
-    await sleep(1000)
-
-    const description = await axios.get<Comment|Pull>(notification.subject.latest_comment_url || notification.subject.url, {
-      headers: {
-        "Authorization": `token ${token}`,
-      },
-    })
-
-    feed.addItem({
-      title: notification.subject.title,
-      id: `tag:ilmestys.now.sh,2019-08-22:${notification.id}`,
-      link: description.data.html_url,
-      description: description.data.body,
-      content: description.data.body,
-      author: [
-        {
-          name: description.data.user.login,
-          link: description.data.user.html_url,
-        },
-      ],
-      date: new Date(notification.updated_at),
-      image: description.data.user.avatar_url,
-    })
-  }
-
-  ctx.type = "application/atom+xml; charset=utf-8"
-  ctx.body = feed.atom1()
-})
-
+app.use(logger())
+app.use(responseTime())
 app.use(router.routes())
 
 if (!process.env.IS_NOW) {
