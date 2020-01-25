@@ -7,7 +7,7 @@ RSS feed generator for GitHub notifications
 ### 1. Make Personal access token
 
 Ilmestys required access token for get notifications, informations of private repository.
-Open <https://github.com/settings/tokens> and make access token.
+Open <https://github.com/settings/tokens/new?description=Ilmestys&scopes=repo,notifications,read:discussion> and make access token.
 
 | scope | description | purpose |
 |-------|-------------|---------|
@@ -19,5 +19,5 @@ Open <https://github.com/settings/tokens> and make access token.
 
 Ilmestys use Basic authorization for receive access token.
 
-Subscribe <https://ilmestys.atnanasi.now.sh/atom> and input authorization information.
+Subscribe <https://ilmestys.now.sh/atom> and input authorization information.
 You can use any username but enter the access token for the password.
