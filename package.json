@@ -6,19 +6,25 @@
   "repository": "ssh://git@github.com/atnanasi/ilmestys.git",
   "author": "Atnanasi <ys2000pro@gmail.com>",
   "license": "MIT",
-  "engines": { "node": "12.x" },
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "axios": "^0.19.0",
     "feed": "^4.1.0",
     "js-base64": "^2.5.1",
     "koa": "^2.11.0",
+    "koa-logger": "^3.2.1",
+    "koa-response-time": "^2.1.0",
     "koa-router": "^7.4.0",
     "transform-ts": "^0.2.2"
   },
   "devDependencies": {
     "@types/js-base64": "^2.3.1",
     "@types/koa": "^2.11.0",
-    "@types/koa-router": "^7.0.42",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-response-time": "^2.1.0",
+    "@types/koa-router": "^7.4.0",
     "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
@@ -26,6 +32,6 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node ./src/index.ts",
-    "format": "prettier --check \"./src/**/*.ts\""
+    "format": "prettier --write \"./src/**/*.ts\""
   }
 }
