@@ -25,7 +25,7 @@
     "@types/koa-response-time": "^2.1.0",
     "@types/koa-router": "^7.4.1",
     "prettier": "^2.0.5",
-    "ts-node": "^8.10.1",
+    "ts-node": "^9.1.0",
     "typescript": "^3.9.3"
   },
   "scripts": {
