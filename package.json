@@ -21,6 +21,7 @@
     "build": "tsc",
     "dev": "tsc-watch --onSuccess \"yarn run start\"",
     "format": "prettier -w .",
+    "lint": "prettier -c .",
     "start": "node ./dist/index.js"
   }
 }
