@@ -1,36 +1,25 @@
 {
   "name": "ilmestys",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "RSS feed generator for GitHub notifications",
-  "main": "dist/index.ts",
-  "repository": "ssh://git@github.com/atnanasi/ilmestys.git",
-  "author": "Atnanasi <ys2000pro@gmail.com>",
-  "license": "MIT",
-  "engines": {
-    "node": "12.x"
-  },
+  "packageManager": "yarn@3.2.1",
+  "type": "module",
   "dependencies": {
-    "axios": "^0.19.2",
-    "feed": "^4.2.0",
-    "js-base64": "^2.5.2",
-    "koa": "^2.12.0",
-    "koa-logger": "^3.2.1",
-    "koa-response-time": "^2.1.0",
-    "koa-router": "^8.0.8"
+    "@koa/router": "^10.1.1",
+    "feed": "4.2.2",
+    "koa": "2.13.4",
+    "zod": "^3.17.3"
   },
   "devDependencies": {
-    "@types/js-base64": "^2.3.1",
     "@types/koa": "^2.11.3",
-    "@types/koa-logger": "^3.1.1",
-    "@types/koa-response-time": "^2.1.0",
-    "@types/koa-router": "^7.4.1",
-    "prettier": "^2.0.5",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.9.3"
+    "@types/koa__router": "^8.0.11",
+    "prettier": "2.7.1",
+    "tsc-watch": "^5.0.3",
+    "typescript": "4.7.4"
   },
   "scripts": {
     "build": "tsc",
-    "start": "ts-node ./src/index.ts",
-    "format": "prettier --write \"./src/**/*.ts\""
+    "dev": "tsc-watch --onSuccess \"yarn run start\"",
+    "start": "node ./dist/index.js"
   }
 }

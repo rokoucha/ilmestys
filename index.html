@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ilmestys</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
+  </head>
+  <body class="vscode-body vscode-light">
+    <h1 id="ilmestys">Ilmestys</h1>
+    <p>RSS feed generator for GitHub notifications</p>
+    <h2 id="how-to-use">How to use</h2>
+    <h3 id="1-make-personal-access-token">1. Make Personal access token</h3>
+    <p>
+      Ilmestys will require an access token to get notifications and information
+      on a private repository. Open
+      <a
+        href="https://github.com/settings/tokens/new?description=Ilmestys&amp;scopes=repo,notifications,read:discussion"
+      >
+        https://github.com/settings/tokens/new?description=Ilmestys&amp;scopes=repo,notifications,read:discussion
+      </a>
+      and make an access token.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>scope</th>
+          <th>description</th>
+          <th>purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>Full control of private repositories</td>
+          <td>get informations of private repository</td>
+        </tr>
+        <tr>
+          <td><code>notifications</code></td>
+          <td>Access notifications</td>
+          <td>get notifications</td>
+        </tr>
+        <tr>
+          <td><code>read:discussion</code></td>
+          <td>Read team discussions</td>
+          <td>Access discussion in private repository</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="2-add-ilmestys-to-rss-reader">2. Add Ilmestys to RSS Reader</h3>
+    <p>Ilmestys will use Basic authorisation to receive access tokens.</p>
+    <p>
+      Subscribe
+      <a href="https://ilmestys.ggrel.net/feed">
+        https://ilmestys.ggrel.net/feed
+      </a>
+      and input authorisation information. You can use any username but enter
+      the access token for the password.
+    </p>
+  </body>
+</html>
