@@ -18,18 +18,28 @@ export async function generate(token: string): Promise<string> {
   )
 
   const notifications = z
-    .array(
-      z.object({
-        id: z.string(),
-        subject: z.object({
-          latest_comment_url: z.nullable(z.string()),
-          title: z.string(),
-          url: z.string(),
+    .union([
+      z.array(
+        z.object({
+          id: z.string(),
+          subject: z.object({
+            latest_comment_url: z.nullable(z.string()),
+            title: z.string(),
+            url: z.string(),
+          }),
+          updated_at: z.string().transform((v) => new Date(v)),
         }),
-        updated_at: z.string().transform((v) => new Date(v)),
+      ),
+      z.object({
+        documentation_url: z.string(),
+        message: z.string(),
       }),
-    )
+    ])
     .parse(await res.json())
+
+  if ('message' in notifications) {
+    throw new Error('Invalid token')
+  }
 
   const latestAt =
     notifications
@@ -73,7 +83,7 @@ export async function generate(token: string): Promise<string> {
 
     const description = z
       .object({
-        body: z.string(),
+        body: z.nullable(z.string()),
         html_url: z.string(),
         user: z.object({
           avatar_url: z.string(),
@@ -87,9 +97,9 @@ export async function generate(token: string): Promise<string> {
       author: [
         { name: description.user.login, link: description.user.html_url },
       ],
-      content: description.body,
+      content: description.body ?? '',
       date: notification.updated_at,
-      description: description.body,
+      description: description.body ?? '',
       id: createTagUri(notification.id),
       image: description.user.avatar_url,
       link: description.html_url,

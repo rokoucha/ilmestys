@@ -16,7 +16,7 @@ router.get('/feed', async (ctx) => {
   let token: string
   try {
     token = getToken(ctx.request.headers['authorization'])
-  } catch (error) {
+  } catch {
     console.warn('Error in get token from Authorization header')
 
     ctx.body = 'Error in get token from Authorization header'
@@ -24,7 +24,20 @@ router.get('/feed', async (ctx) => {
     return
   }
 
-  const feed = await generate(token)
+  let feed: string
+  try {
+    feed = await generate(token)
+  } catch (e) {
+    if (e instanceof Error && e.message === 'Invalid token') {
+      console.warn(e.message)
+
+      ctx.body = e.message
+      ctx.status = 401
+      return
+    }
+
+    throw e
+  }
 
   ctx.body = feed
   ctx.type = 'application/atom+xml; charset=utf-8'
@@ -37,7 +50,7 @@ app.use(async (ctx, next) => {
     await next()
   } catch (e) {
     console.error(e)
-    ctx.body = ''
+    ctx.body = 'Internal Server Error'
     ctx.status = 500
   }
   const end = performance.now()
