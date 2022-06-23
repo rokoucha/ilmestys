@@ -22,6 +22,8 @@ export async function generate(token: string): Promise<string> {
       z.array(
         z.object({
           id: z.string(),
+          reason: z.string(),
+          repository: z.object({ full_name: z.string() }),
           subject: z.object({
             latest_comment_url: z.nullable(z.string()),
             title: z.string(),
@@ -85,6 +87,7 @@ export async function generate(token: string): Promise<string> {
       .object({
         body: z.nullable(z.string()),
         html_url: z.string(),
+        number: z.nullable(z.number()),
         user: z.object({
           avatar_url: z.string(),
           html_url: z.string(),
@@ -99,11 +102,11 @@ export async function generate(token: string): Promise<string> {
       ],
       content: description.body ?? '',
       date: notification.updated_at,
-      description: description.body ?? '',
+      description: notification.subject.title,
       id: createTagUri(notification.id),
       image: description.user.avatar_url,
       link: description.html_url,
-      title: notification.subject.title,
+      title: `${notification.repository.full_name} #${description.number} ${notification.subject.title} (${notification.reason})`,
     })
   }
 
